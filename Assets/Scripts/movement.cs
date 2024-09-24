@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     public Transform player;
     float xdirection;
     float xspeed;
     float xvector;
     float ydirection;
+    [SerializeField]
     float yspeed;
     float yvector;
 
@@ -18,9 +19,6 @@ public class movement : MonoBehaviour
         xspeed = 4;
         xdirection = 0;
         xvector = 0;
-        yspeed = 4;
-        ydirection = 0;
-        yvector = 0;
     }
 
     // Update is called once per frame
@@ -32,7 +30,7 @@ public class movement : MonoBehaviour
 
         ydirection = Input.GetAxis("Vertical");
         yvector = ydirection * yspeed;
-        player.position += new Vector3(yvector, 0, 0) * Time.deltaTime;
+        player.position += new Vector3(0, yvector, 0) * Time.deltaTime;
     }
 
 }
