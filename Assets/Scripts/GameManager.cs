@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     private  int max_Health = 10;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI coinText;
+    private string currentSceneName; 
 
     void Awake()
     {
@@ -31,8 +33,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coinText.text = "coins: " + gm.coins;
+        //set restart scene
         coins = 0;
+        coinText.text = "coins: " + gm.coins;
         health = 10;
         healthText.text = "health: " + gm.health;
     }
@@ -47,6 +50,8 @@ public class GameManager : MonoBehaviour
     {
         print("you died.");
         //restart level
+        //sm reload
+        //sm load scene
     }
 
     public int GetHealth()
@@ -56,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
+        healthText.text = "health: " + gm.health;
         health += amount;
         if (health > max_Health)
         {
@@ -66,6 +72,12 @@ public class GameManager : MonoBehaviour
         {
             Die();
             //also update health text
+            health = max_Health;
+            coins = 0;
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentSceneName);
         }
+        healthText.text = "health: " + gm.health;
+        coinText.text = "coins: " + gm.coins;
     }
 }

@@ -20,11 +20,12 @@ public class Health : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Spikes"))
         {
-            gm.ChangeHealth(-1);
+            gm.ChangeHealth(amount:-1);
+            print("we have " + gm.health + " health!");
         }
         
         if (other.gameObject.CompareTag("Enemy"))
