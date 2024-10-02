@@ -5,17 +5,18 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 3;
-    public Vector3 target_pos;
+    public Vector3 targetposition;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+         
     }
 
     // Update is called once per frame
     void Update()
     {
-        //move towards player
+        transform.position = Vector3.MoveTowards(transform.position, targetposition, speed * Time.deltaTime).normalized;
+        //move towards target posistion 
     }
 }

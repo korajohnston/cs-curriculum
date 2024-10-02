@@ -8,7 +8,7 @@ public class Turret : MonoBehaviour
 {
     private float coolDown;
     private float firerate = 2;
-    private GameObject projectilePrefab;
+    public GameObject projectilePrefab;
      
     
 
@@ -21,17 +21,18 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        coolDown = Time.deltaTime;
+        coolDown -= Time.deltaTime;
     }
 
-    private void OnTriggerStay(Collision2D other)
+  private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player") & coolDown < 0)
         {
             //GameObject projectile Instantiate(projectilePrefab());
-            Bullet.target = Player.transform.position;
-            cooldown = firerate;
+            GameObject clone = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Projectile script = clone.GetComponent<Projectile>();
+            script.targetposition = other.gameObject.transform.position;
+            coolDown = firerate;
         }
     }
-    
 }

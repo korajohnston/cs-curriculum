@@ -9,6 +9,7 @@ TagManager:
   - Axe
   - Spikes
   - GameManager
+  - Turret
   layers:
   - Default
   - TransparentFX
