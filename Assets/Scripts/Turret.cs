@@ -15,7 +15,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        print(transform.position);
     }
 
     // Update is called once per frame

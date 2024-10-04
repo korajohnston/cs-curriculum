@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetposition, speed * Time.deltaTime).normalized;
+        transform.position = Vector3.MoveTowards(transform.position, targetposition, speed * Time.deltaTime);
         //move towards target posistion 
     }
 }

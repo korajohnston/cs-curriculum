@@ -27,6 +27,12 @@ public class Health : MonoBehaviour
             gm.ChangeHealth(amount:-1);
             print("we have " + gm.health + " health!");
         }
+
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            gm.ChangeHealth(amount: -1);
+            print("we have " + gm.health + " health!");
+        }
         
         if (other.gameObject.CompareTag("Enemy"))
         {
