@@ -11,6 +11,8 @@ TagManager:
   - GameManager
   - Turret
   - Projectile
+  - Waypoint
+  - EnemyRadius
   layers:
   - Default
   - TransparentFX
