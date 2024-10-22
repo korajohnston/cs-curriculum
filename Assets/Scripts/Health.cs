@@ -7,6 +7,7 @@ using TMPro;
 public class Health : MonoBehaviour
 {
     public GameManager gm;
+    private TopDown_EnemyAnimator _enemyAttacking; 
     
     // Start is called before the first frame update
     void Start()
@@ -36,7 +37,8 @@ public class Health : MonoBehaviour
         
         if (other.gameObject.CompareTag("Enemy"))
         {
-            gm.ChangeHealth(-3);
+            gm.ChangeHealth(-2);
         }
+        
     }
 }

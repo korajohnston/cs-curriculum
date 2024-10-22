@@ -56,9 +56,10 @@ public class TopDown_EnemyAnimator : MonoBehaviour
         
     }
 
-    // Call this function from another script for the orc to attack!
+    // Call this function from another script for the orc to attack
     public void Attack()
     {
         anim.SetTrigger("Attack");
+        print("attack");
     }
 }

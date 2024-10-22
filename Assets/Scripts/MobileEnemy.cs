@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class MobileEnemy : MonoBehaviour
@@ -15,7 +16,7 @@ public class MobileEnemy : MonoBehaviour
 
     private float attackTimer = 1.3f;
     private float attackCooldown = 0;
-    private float attackRate = 2;
+    private float attackRate = 1;
 
     private TopDown_EnemyAnimator _animator;
     
@@ -33,10 +34,12 @@ public class MobileEnemy : MonoBehaviour
     void Start()
     {
         _animator = GetComponentInChildren<TopDown_EnemyAnimator>();
+        
     }
     // Update is called once per frame
     void Update()
     {
+        print(State);
         if (State == States.Chase)
         {
             Chase();
@@ -71,7 +74,7 @@ public class MobileEnemy : MonoBehaviour
             }
             else
             {
-                State = States.Attack;
+                SwitchState(States.Attack);
 
             }
         }
@@ -87,7 +90,7 @@ public class MobileEnemy : MonoBehaviour
             }
             else
             {
-                State = States.Chase;
+                SwitchState(States.Chase);
             }
             
         }
@@ -104,12 +107,12 @@ public class MobileEnemy : MonoBehaviour
 
         if (player != null)
         {
-            State = States.Chase;
+            SwitchState(States.Chase);
         }
 
         if (health < 0)
         {
-            State = States.Die;
+            SwitchState(States.Die);
         }
         
         
@@ -131,21 +134,19 @@ public class MobileEnemy : MonoBehaviour
 
     void Attack()
     {
-        if (attackCooldown < 0)
-        {
-            _animator.Attack();
-        }
-
         
-        if (_animator.IsAttacking)
+        if (!_animator.IsAttacking)
         {
+            attackCooldown -= Time.deltaTime;
             print("the enemy is attacking"+_animator.IsAttacking);
-            //attackCooldown = attackRate;
-            //attackCooldown -= Time.deltaTime;
+            if (attackCooldown < 0)
+            {
+                _animator.Attack();
+                attackCooldown = attackRate;
+            }
             
         }
-
-
+        
     }
 
     void Die()
@@ -154,5 +155,11 @@ public class MobileEnemy : MonoBehaviour
         gameObject.SetActive(false);
         //instatiate a coin or something else to drop?
         //maybe with a random range if we drop or not
+    }
+
+    void SwitchState(States _state)
+    {
+        State = _state;
+        StartofState = true;
     }
 }
