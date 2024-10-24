@@ -272,6 +272,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1571270045920834490, guid: fbdc99957549444bfba281e61d9d218c,
         type: 3}
+      propertyPath: BoxCollider.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571270045920834490, guid: fbdc99957549444bfba281e61d9d218c,
+        type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 1719576997}

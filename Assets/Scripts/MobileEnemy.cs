@@ -16,10 +16,12 @@ public class MobileEnemy : MonoBehaviour
 
     private float attackTimer = 1.3f;
     private float attackCooldown = 0;
-    private float attackRate = 1;
+    private float attackRate = 2;
 
     private TopDown_EnemyAnimator _animator;
-    
+    public BoxCollider2D hitbox;
+    public Vector2 originalhitBoxSize;
+    public Vector2 attackinghitBoxSize;
     
     public int health = 5;
 
@@ -34,7 +36,9 @@ public class MobileEnemy : MonoBehaviour
     void Start()
     {
         _animator = GetComponentInChildren<TopDown_EnemyAnimator>();
-        
+        hitbox = GetComponent<BoxCollider2D>();
+        originalhitBoxSize = hitbox.size;
+        attackinghitBoxSize = new Vector2(2f, 2f);
     }
     // Update is called once per frame
     void Update()
@@ -53,9 +57,7 @@ public class MobileEnemy : MonoBehaviour
         if (State == States.Attack)
         {
             Attack();
-            //temporary until we get the animation working, eventually will just be the end of the animation frame
             attackTimer -= Time.deltaTime;
-            
         }
         
         if (State == States.Die)
@@ -141,10 +143,15 @@ public class MobileEnemy : MonoBehaviour
             print("the enemy is attacking"+_animator.IsAttacking);
             if (attackCooldown < 0)
             {
+                hitbox.size = attackinghitBoxSize;
                 _animator.Attack();
                 attackCooldown = attackRate;
             }
-            
+            // if 1 < attackCooldown then set it back to originalhitBoxSize
+            if (attackCooldown > 1)
+            {
+                hitbox.size = originalhitBoxSize;
+            }
         }
         
     }
