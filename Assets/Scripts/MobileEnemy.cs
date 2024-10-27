@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -14,14 +15,15 @@ public class MobileEnemy : MonoBehaviour
     States State;
     private bool StartofState = true;
 
-    private float attackTimer = 1.3f;
+    private float attackTimer = 0.75f;
     private float attackCooldown = 0;
     private float attackRate = 2;
 
     private TopDown_EnemyAnimator _animator;
     public BoxCollider2D hitbox;
-    public Vector2 originalhitBoxSize;
-    public Vector2 attackinghitBoxSize;
+    public Vector2 originalHitBoxSize;
+    public Vector2 attackingHitBoxSize;
+    
     
     public int health = 5;
 
@@ -37,8 +39,8 @@ public class MobileEnemy : MonoBehaviour
     {
         _animator = GetComponentInChildren<TopDown_EnemyAnimator>();
         hitbox = GetComponent<BoxCollider2D>();
-        originalhitBoxSize = hitbox.size;
-        attackinghitBoxSize = new Vector2(2f, 2f);
+        originalHitBoxSize = hitbox.size;
+        attackingHitBoxSize = new Vector2(x: 2f, y: 2f);
     }
     // Update is called once per frame
     void Update()
@@ -57,7 +59,8 @@ public class MobileEnemy : MonoBehaviour
         if (State == States.Attack)
         {
             Attack();
-            attackTimer -= Time.deltaTime;
+            //The following timer is being started when the animator plays attack animation
+            //attackTimer -= Time.deltaTime;
         }
         
         if (State == States.Die)
@@ -100,6 +103,7 @@ public class MobileEnemy : MonoBehaviour
 
     void Patroll()
     {
+        ChangeHitBoxSize(originalHitBoxSize);
         if (Vector3.Distance(transform.position, waypoints[currentWaypoint].transform.position) < 1f)
         {
             currentWaypoint++;
@@ -136,26 +140,59 @@ public class MobileEnemy : MonoBehaviour
 
     void Attack()
     {
-        
         if (!_animator.IsAttacking)
         {
             attackCooldown -= Time.deltaTime;
-            print("the enemy is attacking"+_animator.IsAttacking);
             if (attackCooldown < 0)
             {
-                hitbox.size = attackinghitBoxSize;
                 _animator.Attack();
-                attackCooldown = attackRate;
+                ChangeHitBoxSize(attackingHitBoxSize);
             }
-            // if 1 < attackCooldown then set it back to originalhitBoxSize
-            if (attackCooldown > 1)
+            else
             {
-                hitbox.size = originalhitBoxSize;
+                ChangeHitBoxSize(originalHitBoxSize);
             }
+           
         }
-        
+        else
+        {
+            attackTimer -= Time.deltaTime;
+            if (attackTimer < 0)
+            {
+                ChangeHitBoxSize(originalHitBoxSize);
+                attackCooldown = attackRate;
+                attackTimer = 0.75f;
+            }
+            
+        }
+
+        /*attackCooldown -= Time.deltaTime;
+            print("the enemy is attacking"+_animator.IsAttacking);
+            if (attackCooldown < 0 && attackCooldown > -2)
+            {
+                ChangeHitBoxSize(attackingHitBoxSize);
+                _animator.Attack();
+                if (attackCooldown < -2)
+                { 
+                    attackCooldown = attackRate; 
+                    ChangeHitBoxSize(originalHitBoxSize);  
+                }
+                 
+            }
+            
+            if 1 < attackCooldown then set it back to originalhitBoxSize
+            //else if (attackCooldown > 1)
+            //{
+               //hitbox.size = hitBoxSize;
+            //}
+        }
+        */
     }
 
+    void ChangeHitBoxSize(Vector2 size)
+    {
+        hitbox.size = size;
+    }
     void Die()
     {
         print("enemy died");
@@ -170,3 +207,4 @@ public class MobileEnemy : MonoBehaviour
         StartofState = true;
     }
 }
+
