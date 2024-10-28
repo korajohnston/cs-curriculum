@@ -12,20 +12,22 @@ public class MobileEnemy : MonoBehaviour
     public int currentWaypoint = 0;
     private float speed = 4;
     public GameObject player;
-    States State;
+    public States State;
     private bool StartofState = true;
 
-    private float attackTimer = 0.75f;
-    private float attackCooldown = 0;
-    private float attackRate = 2;
+    public float attackTimer = 0.75f;
+    public float attackCooldown = 0;
+    public float attackRate = 2;
 
     private TopDown_EnemyAnimator _animator;
     public BoxCollider2D hitbox;
     public Vector2 originalHitBoxSize;
     public Vector2 attackingHitBoxSize;
-    
-    
+
+    public bool AbleToAttack = false;
     public int health = 5;
+
+    public GameObject axeltemPrefab;
 
     public enum States 
     {
@@ -80,7 +82,7 @@ public class MobileEnemy : MonoBehaviour
             else
             {
                 SwitchState(States.Attack);
-
+                AbleToAttack = true;
             }
         }
     }
@@ -91,11 +93,13 @@ public class MobileEnemy : MonoBehaviour
         {
             if (State == States.Chase)
             {
-                player = null;    
+                player = null;
+                SwitchState(States.Patroll);
             }
             else
             {
                 SwitchState(States.Chase);
+                AbleToAttack = false;
             }
             
         }
@@ -128,7 +132,7 @@ public class MobileEnemy : MonoBehaviour
     {
         if(player == null) 
         {
-            State = States.Patroll;
+            SwitchState(States.Patroll);
         }
         else
         {
@@ -142,11 +146,16 @@ public class MobileEnemy : MonoBehaviour
     {
         if (!_animator.IsAttacking)
         {
+            //attackCooldown, time between attacks
+            //attackTimer, length of attack
+            //attackRate, resets the cooldown
+            
             attackCooldown -= Time.deltaTime;
-            if (attackCooldown < 0)
+            if (attackCooldown <= 0)
             {
                 _animator.Attack();
                 ChangeHitBoxSize(attackingHitBoxSize);
+                attackCooldown = attackRate;
             }
             else
             {
@@ -154,39 +163,20 @@ public class MobileEnemy : MonoBehaviour
             }
            
         }
+       
         else
         {
             attackTimer -= Time.deltaTime;
-            if (attackTimer < 0)
+            if (attackTimer <= 0)
             {
                 ChangeHitBoxSize(originalHitBoxSize);
                 attackCooldown = attackRate;
                 attackTimer = 0.75f;
             }
             
-        }
-
-        /*attackCooldown -= Time.deltaTime;
-            print("the enemy is attacking"+_animator.IsAttacking);
-            if (attackCooldown < 0 && attackCooldown > -2)
-            {
-                ChangeHitBoxSize(attackingHitBoxSize);
-                _animator.Attack();
-                if (attackCooldown < -2)
-                { 
-                    attackCooldown = attackRate; 
-                    ChangeHitBoxSize(originalHitBoxSize);  
-                }
-                 
-            }
             
-            if 1 < attackCooldown then set it back to originalhitBoxSize
-            //else if (attackCooldown > 1)
-            //{
-               //hitbox.size = hitBoxSize;
-            //}
         }
-        */
+        
     }
 
     void ChangeHitBoxSize(Vector2 size)
@@ -197,6 +187,7 @@ public class MobileEnemy : MonoBehaviour
     {
         print("enemy died");
         gameObject.SetActive(false);
+        GameObject clone = Instantiate(axeltemPrefab, transform.position, Quaternion.identity);
         //instatiate a coin or something else to drop?
         //maybe with a random range if we drop or not
     }

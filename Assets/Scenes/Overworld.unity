@@ -267,6 +267,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1571270045920834490, guid: fbdc99957549444bfba281e61d9d218c,
         type: 3}
+      propertyPath: axeltemPrefab
+      value: 
+      objectReference: {fileID: 8928701524657299959, guid: 2d2bc4cf5fda5c740b9cedcdbc7c87ac,
+        type: 3}
+    - target: {fileID: 1571270045920834490, guid: fbdc99957549444bfba281e61d9d218c,
+        type: 3}
       propertyPath: waypoints.Array.size
       value: 5
       objectReference: {fileID: 0}
