@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     [SerializeField]
     float yspeed;
     float yvector;
+    public GameObject playerProjectilePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,16 @@ public class Movement : MonoBehaviour
         ydirection = Input.GetAxis("Vertical");
         yvector = ydirection * yspeed;
         player.position += new Vector3(0, yvector, 0) * Time.deltaTime;
+
+        if (Input.GetMouseButton(0))
+        {
+            GameObject clone = Instantiate(playerProjectilePrefab, transform.position, Quaternion.identity);
+            PlayerProjectile script = clone.GetComponent<PlayerProjectile>();
+            script.targetposition = gameObject.transform.position;
+        }
+        
     }
+    
+    
 
 }

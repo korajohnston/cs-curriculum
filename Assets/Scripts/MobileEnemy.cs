@@ -197,5 +197,10 @@ public class MobileEnemy : MonoBehaviour
         State = _state;
         StartofState = true;
     }
+
+    void onTriggerEnter2D(Collider2D other)
+    {
+        health = health - 1;
+    }
 }
 
