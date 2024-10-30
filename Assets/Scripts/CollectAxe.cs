@@ -8,12 +8,14 @@ public class CollectAxe : MonoBehaviour
     private int axe;
     public static MobileEnemy me;
     public bool HasAxe = false;
+    private TopDown_AnimatorController _animator;
     
     // Start is called before the first frame update
     void Start()
     {
         me = FindObjectOfType<MobileEnemy>();
         HasAxe = false;
+        _animator = GetComponentInChildren<TopDown_AnimatorController>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,7 @@ public class CollectAxe : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         HasAxe = true;
+        _animator.SwitchToAxe();
     }
 }
 
