@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7101103389178533185}
   - component: {fileID: -3514862467880035125}
   - component: {fileID: 4327165216284067482}
-  - component: {fileID: 3525174986464846602}
+  - component: {fileID: -7245396424714812595}
+  - component: {fileID: -5641417369329807898}
   m_Layer: 0
   m_Name: Player_Projectile
   m_TagString: PlayerProjectile
@@ -121,7 +122,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.08
---- !u!114 &3525174986464846602
+--- !u!114 &-7245396424714812595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,9 +131,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 5790822057519619805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0bad12643fad4aa0aa294384be3909e, type: 3}
+  m_Script: {fileID: 11500000, guid: f17231e5d622d470eb5d042e69262365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  targetposition: {x: 0, y: 0, z: 0}
+  enemytargetposition: {x: 0, y: 0}
   timer: 0
+  _controller: {fileID: 0}
+  animator: {fileID: 0}
+  WalkDir: 0
+  playerProjectilePrefab: {fileID: 5790822057519619805}
+  facing: 
+--- !u!114 &-5641417369329807898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5790822057519619805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55444c73947e64f19a85f69fad3709fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  yspeed: 0
+  _controller: {fileID: 0}
+  animator: {fileID: 0}
+  WalkDir: 0
+  playerProjectilePrefab: {fileID: 5790822057519619805}
+  facing: 

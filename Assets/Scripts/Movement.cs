@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Movement : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Movement : MonoBehaviour
     public Animator animator;
     public int WalkDir;
     public GameObject playerProjectilePrefab;
+    public string facing;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,7 @@ public class Movement : MonoBehaviour
         xspeed = 4;
         xdirection = 0;
         xvector = 0;
-        // get animator somehow C:
+        //facing == TopDown_AnimatorController.facing;
     }
 
     // Update is called once per frame
@@ -38,14 +40,39 @@ public class Movement : MonoBehaviour
         ydirection = Input.GetAxis("Vertical");
         yvector = ydirection * yspeed;
         player.position += new Vector3(0, yvector, 0) * Time.deltaTime;
-        
+
+
         if (Input.GetMouseButton(0))
         {
+
             GameObject clone = Instantiate(playerProjectilePrefab, transform.position, Quaternion.identity);
             Rigidbody2D cloneRB = clone.GetComponent<Rigidbody2D>();
+            
+            if (facing == "left")
+            {
+                print("Left");
+                cloneRB.AddForce(Vector2.left);
+            }
 
+            if (facing == "right")
+            {
+                cloneRB.AddForce(Vector2.right);
+            }
+
+            if (facing == "up")
+            {
+                cloneRB.AddForce(Vector2.up);
+            }
+
+            if (facing == "down")
+            {
+                cloneRB.AddForce(Vector2.down);
+            }
+           
+            /*
             if (WalkDir == 1 && Input.GetAxis("Horizontal") < 0)
             {
+                print("Left");
                 cloneRB.AddForce(Vector2.left);
             }
             if (WalkDir == 1 && Input.GetAxis("Horizontal") > 0)
@@ -60,8 +87,11 @@ public class Movement : MonoBehaviour
             {
                 cloneRB.AddForce(Vector2.down);
             }
-
-        }
+            */
+        } 
     }
 
+    
+           
 }
+

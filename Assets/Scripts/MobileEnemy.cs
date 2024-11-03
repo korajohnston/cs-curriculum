@@ -25,7 +25,7 @@ public class MobileEnemy : MonoBehaviour
     public Vector2 attackingHitBoxSize;
 
     public bool AbleToAttack = false;
-    public int health = 5;
+    public int health = 1;
 
     public GameObject axeltemPrefab;
 
@@ -42,6 +42,7 @@ public class MobileEnemy : MonoBehaviour
         _animator = GetComponentInChildren<TopDown_EnemyAnimator>();
         hitbox = GetComponent<BoxCollider2D>();
         originalHitBoxSize = hitbox.size;
+        health = 1;
         attackingHitBoxSize = new Vector2(x: 2f, y: 2f);
     }
     // Update is called once per frame
@@ -84,6 +85,10 @@ public class MobileEnemy : MonoBehaviour
                 SwitchState(States.Attack);
                 AbleToAttack = true;
             }
+            if (health < 0)
+            {
+                SwitchState(States.Die);
+            }
         }
     }
 
@@ -101,7 +106,10 @@ public class MobileEnemy : MonoBehaviour
                 SwitchState(States.Chase);
                 AbleToAttack = false;
             }
-            
+            if (health < 0)
+            {
+                SwitchState(States.Die);
+            }
         }
     }
 
@@ -138,6 +146,10 @@ public class MobileEnemy : MonoBehaviour
         {
             //move towards player
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+        if (health < 0)
+        {
+            SwitchState(States.Die);
         }
 
     }
@@ -200,7 +212,11 @@ public class MobileEnemy : MonoBehaviour
 
     void onTriggerEnter2D(Collider2D other)
     {
-        health = health - 1;
+        if (other.gameObject.CompareTag("PlayerProjectile"))
+        {
+            health -= 1;
+        }
     }
+    
 }
 

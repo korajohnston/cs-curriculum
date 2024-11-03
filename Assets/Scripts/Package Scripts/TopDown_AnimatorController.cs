@@ -14,7 +14,8 @@ public class TopDown_AnimatorController : MonoBehaviour
 
     Animator anim;
     SpriteRenderer sprite;
-
+    public string facing;
+    public GameObject playerProjectilePrefab;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -53,20 +54,25 @@ public class TopDown_AnimatorController : MonoBehaviour
                 {
                     anim.SetInteger("WalkDir", 1);
                     sprite.flipX = true;
+                    facing = "left";
                 }
                 else if (Input.GetAxis("Horizontal") < 0)
                 {
                     anim.SetInteger("WalkDir", 1);
                     sprite.flipX = false;
+                    facing = "right";
                 }
                 else if (Input.GetAxis("Vertical") > 0)
                 {
                     anim.SetInteger("WalkDir", 0);
+                    facing = "up";
                 }
                 else if (Input.GetAxis("Vertical") < 0)
                 {
                     anim.SetInteger("WalkDir", 2);
+                    facing = "down";
                 }
+                print(facing);
             }
         }
         else
@@ -78,6 +84,7 @@ public class TopDown_AnimatorController : MonoBehaviour
         {
             anim.SetTrigger("Attack");
             anim.SetBool("IsWalking", false);
+         
         }
 
         IsAttacking = anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
@@ -95,4 +102,5 @@ public class TopDown_AnimatorController : MonoBehaviour
     {
         anim.runtimeAnimatorController = animShovel;
     }
+    
 }

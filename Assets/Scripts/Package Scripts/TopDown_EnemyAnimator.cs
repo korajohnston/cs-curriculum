@@ -10,7 +10,6 @@ public class TopDown_EnemyAnimator : MonoBehaviour
 
     Vector3 prevPos;
     Animator anim;
-    public string facing;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +27,12 @@ public class TopDown_EnemyAnimator : MonoBehaviour
             if (movement.x > 0f)
             {
                 anim.SetInteger("Direction", 0);
-                facing = "right";
+                
             }
             if (movement.x < 0f)
             {
                 anim.SetInteger("Direction", 2);
-                facing = "left";
+                
             }
         }
         else
@@ -41,12 +40,12 @@ public class TopDown_EnemyAnimator : MonoBehaviour
             if (movement.y > 0f)
             {
                 anim.SetInteger("Direction", 1);
-                facing = "up";
+                
             }
             if (movement.y < 0f)
             {
                 anim.SetInteger("Direction", 3);
-                facing = "down";
+                
             }
         }
 
