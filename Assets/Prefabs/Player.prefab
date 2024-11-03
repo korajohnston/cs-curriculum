@@ -271,6 +271,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 7819348094328437333}
   yspeed: 4
+  _controller: {fileID: 7869803674047299266}
+  animator: {fileID: 8817025345248629567}
+  WalkDir: 0
+  playerProjectilePrefab: {fileID: 0}
 --- !u!114 &7583656344112175723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7100d5b607b40208df5701b4a8c392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinText: {fileID: 0}
 --- !u!114 &9020328298120687958
 MonoBehaviour:
   m_ObjectHideFlags: 0

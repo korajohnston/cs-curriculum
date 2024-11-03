@@ -8,7 +8,6 @@ public class PlayerProjectile : MonoBehaviour
     public Vector3 targetposition;
     public float timer;
     private float DeathTime = 4;
-    
     // Start is called before the first frame update
     void Start()
     {
