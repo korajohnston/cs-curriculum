@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Animations;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class Movement : MonoBehaviour
 {
@@ -16,6 +20,8 @@ public class Movement : MonoBehaviour
     private float yvector;
     public TopDown_AnimatorController _controller;
     public GameObject playerProjectilePrefab;
+    private float coolDown;
+    private float firerate = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -36,58 +42,36 @@ public class Movement : MonoBehaviour
         ydirection = Input.GetAxis("Vertical");
         yvector = ydirection * yspeed;
         player.position += new Vector3(0, yvector, 0) * Time.deltaTime;
+        coolDown -= Time.deltaTime;
 
 
         if (Input.GetMouseButton(0))
         {
-
             GameObject clone = Instantiate(playerProjectilePrefab, transform.position, Quaternion.identity);
             Rigidbody2D cloneRB = clone.GetComponent<Rigidbody2D>();
+            coolDown = firerate;
             
             if (_controller.facing == "left")
             {
-                print("Left");
-                cloneRB.AddForce(Vector2.left);
+                cloneRB.AddForce(Vector2.right * 8f, ForceMode2D.Impulse);
             }
 
             if (_controller.facing == "right")
             {
-                cloneRB.AddForce(Vector2.right);
+                cloneRB.AddForce(Vector2.left * 8f, ForceMode2D.Impulse);
             }
 
             if (_controller.facing == "up")
             {
-                cloneRB.AddForce(Vector2.up);
+                cloneRB.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
             }
 
             if (_controller.facing == "down")
             {
-                cloneRB.AddForce(Vector2.down);
+                cloneRB.AddForce(Vector2.down * 8f, ForceMode2D.Impulse);
             }
            
-            /*
-            if (WalkDir == 1 && Input.GetAxis("Horizontal") < 0)
-            {
-                print("Left");
-                cloneRB.AddForce(Vector2.left);
-            }
-            if (WalkDir == 1 && Input.GetAxis("Horizontal") > 0)
-            {
-                cloneRB.AddForce(Vector2.right);
-            }
-            if (WalkDir == 0)
-            {
-                cloneRB.AddForce(Vector2.up);
-            }
-            if (WalkDir == 2)
-            {
-                cloneRB.AddForce(Vector2.down);
-            }
-            */
         } 
     }
-
-    
-           
 }
 

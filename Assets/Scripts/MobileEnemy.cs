@@ -25,11 +25,11 @@ public class MobileEnemy : MonoBehaviour
     public Vector2 attackingHitBoxSize;
 
     public bool AbleToAttack = false;
-    public int health = 1;
+    public int health = 2;
 
     public GameObject axeltemPrefab;
 
-    public enum States 
+    public enum States
     {
         Patroll,
         Chase,
@@ -45,6 +45,7 @@ public class MobileEnemy : MonoBehaviour
         health = 1;
         attackingHitBoxSize = new Vector2(x: 2f, y: 2f);
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -58,14 +59,14 @@ public class MobileEnemy : MonoBehaviour
         {
             Patroll();
         }
-        
+
         if (State == States.Attack)
         {
             Attack();
             //The following timer is being started when the animator plays attack animation
             //attackTimer -= Time.deltaTime;
         }
-        
+
         if (State == States.Die)
         {
             Die();
@@ -85,10 +86,11 @@ public class MobileEnemy : MonoBehaviour
                 SwitchState(States.Attack);
                 AbleToAttack = true;
             }
-            if (health < 0)
-            {
-                SwitchState(States.Die);
-            }
+            
+        }
+        if(other.gameObject.CompareTag("PlayerProjectile"))
+        {
+            health = health - 1;
         }
     }
 
@@ -106,6 +108,7 @@ public class MobileEnemy : MonoBehaviour
                 SwitchState(States.Chase);
                 AbleToAttack = false;
             }
+
             if (health < 0)
             {
                 SwitchState(States.Die);
@@ -121,7 +124,9 @@ public class MobileEnemy : MonoBehaviour
             currentWaypoint++;
             currentWaypoint %= waypoints.Count;
         }
-        transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint].transform.position,1.5f * Time.deltaTime);
+
+        transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint].transform.position,
+            1.5f * Time.deltaTime);
 
         if (player != null)
         {
@@ -132,21 +137,23 @@ public class MobileEnemy : MonoBehaviour
         {
             SwitchState(States.Die);
         }
-        
-        
+
+
     }
-    
+
     void Chase()
     {
-        if(player == null) 
+        if (player == null)
         {
             SwitchState(States.Patroll);
         }
         else
         {
             //move towards player
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            transform.position =
+                Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
+
         if (health < 0)
         {
             SwitchState(States.Die);
@@ -161,7 +168,7 @@ public class MobileEnemy : MonoBehaviour
             //attackCooldown, time between attacks
             //attackTimer, length of attack
             //attackRate, resets the cooldown
-            
+
             attackCooldown -= Time.deltaTime;
             if (attackCooldown <= 0)
             {
@@ -173,9 +180,9 @@ public class MobileEnemy : MonoBehaviour
             {
                 ChangeHitBoxSize(originalHitBoxSize);
             }
-           
+
         }
-       
+
         else
         {
             attackTimer -= Time.deltaTime;
@@ -185,16 +192,17 @@ public class MobileEnemy : MonoBehaviour
                 attackCooldown = attackRate;
                 attackTimer = 0.75f;
             }
-            
-            
+
+
         }
-        
+
     }
 
     void ChangeHitBoxSize(Vector2 size)
     {
         hitbox.size = size;
     }
+
     void Die()
     {
         print("enemy died");
@@ -209,14 +217,6 @@ public class MobileEnemy : MonoBehaviour
         State = _state;
         StartofState = true;
     }
-
-    void onTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("PlayerProjectile"))
-        {
-            health -= 1;
-        }
-    }
     
 }
-
+    

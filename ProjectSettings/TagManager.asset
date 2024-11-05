@@ -14,6 +14,8 @@ TagManager:
   - Waypoint
   - EnemyRadius
   - PlayerProjectile
+  - CollisionDoor
+  - CollisionCave
   layers:
   - Default
   - TransparentFX

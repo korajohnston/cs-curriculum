@@ -6,14 +6,12 @@ using UnityEngine;
 public class CollectAxe : MonoBehaviour
 {
     private int axe;
-    public static MobileEnemy me;
     public bool HasAxe = false;
     private TopDown_AnimatorController _animator;
     
     // Start is called before the first frame update
     void Start()
     {
-        me = FindObjectOfType<MobileEnemy>();
         HasAxe = false;
         _animator = GetComponentInChildren<TopDown_AnimatorController>();
     }
@@ -26,11 +24,16 @@ public class CollectAxe : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        HasAxe = true;
-        _animator.SwitchToAxe();
+        if (other.gameObject.CompareTag("Axe"))
+        {
+            HasAxe = true;
+            _animator.SwitchToAxe();
+            other.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("CollisionDoor") && _animator.IsAttacking == true && HasAxe == true)
+        {
+            other.gameObject.SetActive(false);
+        }
     }
 }
-
-//hurts enemy if player attacking = true
-//hurts player if enemy attacking = true
-//make player shoot at enemy like projectile with player projectile use turret and projectile script

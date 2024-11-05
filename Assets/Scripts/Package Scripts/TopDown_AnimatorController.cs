@@ -72,7 +72,6 @@ public class TopDown_AnimatorController : MonoBehaviour
                     anim.SetInteger("WalkDir", 2);
                     facing = "down";
                 }
-                print(facing);
             }
         }
         else
