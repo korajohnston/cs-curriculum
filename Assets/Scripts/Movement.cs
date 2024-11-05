@@ -15,10 +15,7 @@ public class Movement : MonoBehaviour
     float yspeed;
     private float yvector;
     public TopDown_AnimatorController _controller;
-    public Animator animator;
-    public int WalkDir;
     public GameObject playerProjectilePrefab;
-    public string facing;
 
     // Start is called before the first frame update
     void Start()
@@ -26,13 +23,12 @@ public class Movement : MonoBehaviour
         xspeed = 4;
         xdirection = 0;
         xvector = 0;
-        //facing == TopDown_AnimatorController.facing;
+        _controller = FindFirstObjectByType<TopDown_AnimatorController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        WalkDir = animator.GetInteger("WalkDir");
         xdirection = Input.GetAxis("Horizontal");
         xvector = xdirection * xspeed;
         player.position += new Vector3(xvector, 0, 0) * Time.deltaTime;
@@ -48,23 +44,23 @@ public class Movement : MonoBehaviour
             GameObject clone = Instantiate(playerProjectilePrefab, transform.position, Quaternion.identity);
             Rigidbody2D cloneRB = clone.GetComponent<Rigidbody2D>();
             
-            if (facing == "left")
+            if (_controller.facing == "left")
             {
                 print("Left");
                 cloneRB.AddForce(Vector2.left);
             }
 
-            if (facing == "right")
+            if (_controller.facing == "right")
             {
                 cloneRB.AddForce(Vector2.right);
             }
 
-            if (facing == "up")
+            if (_controller.facing == "up")
             {
                 cloneRB.AddForce(Vector2.up);
             }
 
-            if (facing == "down")
+            if (_controller.facing == "down")
             {
                 cloneRB.AddForce(Vector2.down);
             }
