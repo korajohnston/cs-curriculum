@@ -44,6 +44,19 @@ public class Movement : MonoBehaviour
         player.position += new Vector3(0, yvector, 0) * Time.deltaTime;
         coolDown -= Time.deltaTime;
 
+        float someValue = 0.2f;
+        Physics2D.Raycast(transform.position, -Vector2.up, someValue);
+        Debug.DrawRay(transform.position, Vector3.down, Color.cyan);
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            yspeed = 0;
+        }
+        else
+        {
+            yspeed = 4;
+        }
+
 
         if (Input.GetMouseButton(0))
         {
