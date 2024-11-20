@@ -16,6 +16,8 @@ TagManager:
   - PlayerProjectile
   - CollisionDoor
   - CollisionCave
+  - MovingPlatform
+  - Lava
   layers:
   - Default
   - TransparentFX
