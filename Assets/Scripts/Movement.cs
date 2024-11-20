@@ -22,6 +22,12 @@ public class Movement : MonoBehaviour
     public GameObject playerProjectilePrefab;
     private float coolDown;
     private float firerate = 1;
+    public float jumpSpeed = 8f;
+    private Rigidbody2D rb;
+    public Transform groundCheck;
+    public float groundCheckRadius;
+    public LayerMask groundLayer;
+    private bool isTouchingGround;
 
     // Start is called before the first frame update
     void Start()
@@ -30,32 +36,31 @@ public class Movement : MonoBehaviour
         xdirection = 0;
         xvector = 0;
         _controller = FindFirstObjectByType<TopDown_AnimatorController>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        isTouchingGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         xdirection = Input.GetAxis("Horizontal");
         xvector = xdirection * xspeed;
         player.position += new Vector3(xvector, 0, 0) * Time.deltaTime;
-
+        
         ydirection = Input.GetAxis("Vertical");
         yvector = ydirection * yspeed;
         player.position += new Vector3(0, yvector, 0) * Time.deltaTime;
         coolDown -= Time.deltaTime;
-
-        float someValue = 0.2f;
-        Physics2D.Raycast(transform.position, -Vector2.up, someValue);
-        Debug.DrawRay(transform.position, Vector3.down, Color.cyan);
+       
+        if (Input.GetButtonDown("Jump") && isTouchingGround)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+        }
         
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            yspeed = 0;
-        }
-        else
-        {
-            yspeed = 4;
-        }
+        //float someValue = 0.4f;
+        //Physics2D.Raycast(transform.position, -Vector2.up, someValue);
+        //Debug.DrawRay(transform.position, Vector3.down, Color.cyan);
+        
 
 
         if (Input.GetMouseButton(0))
