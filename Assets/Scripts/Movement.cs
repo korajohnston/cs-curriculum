@@ -28,6 +28,7 @@ public class Movement : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask groundLayer;
     private bool isTouchingGround;
+    private bool isTouchingPlatform; 
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,11 @@ public class Movement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
         }
+        
+        // new varob;e is touching
+        // in update
+        // if isTouchingGround == true || isTouchingPlatform == true
+        // {isTouching = true}
         
         //float someValue = 0.4f;
         //Physics2D.Raycast(transform.position, -Vector2.up, someValue);
