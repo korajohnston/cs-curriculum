@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Spikes"))
         {
-            gm.ChangeHealth(amount:-1);
+            gm.ChangeHealth(amount:-10);
             print("we have " + gm.health + " health!");
         }
 

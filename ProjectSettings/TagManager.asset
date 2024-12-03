@@ -18,6 +18,7 @@ TagManager:
   - CollisionCave
   - MovingPlatform
   - Lava
+  - RockDoor
   layers:
   - Default
   - TransparentFX
