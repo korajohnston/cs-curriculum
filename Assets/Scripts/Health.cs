@@ -3,16 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Health : MonoBehaviour
 {
     public GameManager gm;
-    private TopDown_EnemyAnimator _enemyAttacking; 
+    private TopDown_EnemyAnimator _enemyAttacking;
+    public CollectPotion potion;
     
     // Start is called before the first frame update
     void Start()
     {
         gm = FindFirstObjectByType<GameManager>();
+        potion = GetComponent<CollectPotion>();
     }
 
     // Update is called once per frame
@@ -39,6 +42,18 @@ public class Health : MonoBehaviour
         {
             gm.ChangeHealth(-1);
         }
-        
+
+        if (other.gameObject.CompareTag("Lava"))
+        {
+            if (potion.hasPotion == true)
+            {
+                gm.ChangeHealth(amount: 0);
+            }
+
+            if (potion.hasPotion == false)
+            {
+                gm.ChangeHealth(amount: -10);
+            }
+        }
     }
 }

@@ -19,6 +19,7 @@ TagManager:
   - MovingPlatform
   - Lava
   - RockDoor
+  - PinkPotion
   layers:
   - Default
   - TransparentFX
