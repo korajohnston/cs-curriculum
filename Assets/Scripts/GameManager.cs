@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
     private  int max_Health = 10;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI coinText;
-    private string currentSceneName; 
-
+    public TextMeshProUGUI timerText;
+    private string currentSceneName;
+    public float timer;
     void Awake()
     {
         if(gm != null && gm != this)
@@ -39,6 +40,9 @@ public class GameManager : MonoBehaviour
         coinText.text = "coins: " + gm.coins;
         health = 10;
         healthText.text = "health: " + gm.health;
+        timer = 10;
+        gm.timerText.text = "timer: " + gm.timer;
+    
     }
 
     // Update is called once per frame
