@@ -31,9 +31,9 @@ public class CollectAxe : MonoBehaviour
             other.gameObject.SetActive(false);
         }
 
-        if (other.gameObject.CompareTag("CollisionDoor") && _animator.IsAttacking == true)
+        if (other.gameObject.CompareTag("CollisionDoor") && _animator.IsAttacking)
         {
-            if (HasAxe == true)
+            if (HasAxe)
             {
                 other.gameObject.SetActive(false);  
             }

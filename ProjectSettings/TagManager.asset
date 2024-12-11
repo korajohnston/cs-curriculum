@@ -20,6 +20,11 @@ TagManager:
   - Lava
   - RockDoor
   - PinkPotion
+  - RockDoor2
+  - Switch2
+  - Switch1
+  - Switch3
+  - RockDoor3
   layers:
   - Default
   - TransparentFX
