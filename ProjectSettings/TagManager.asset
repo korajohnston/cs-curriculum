@@ -25,6 +25,7 @@ TagManager:
   - Switch1
   - Switch3
   - RockDoor3
+  - WoodBlock
   layers:
   - Default
   - TransparentFX

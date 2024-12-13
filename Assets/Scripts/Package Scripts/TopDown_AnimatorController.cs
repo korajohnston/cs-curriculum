@@ -94,6 +94,7 @@ public class TopDown_AnimatorController : MonoBehaviour
     public void SwitchToAxe()
     {
         anim.runtimeAnimatorController = animAxe;
+        anim.SetInteger("WalkDir", 1);
     }
 
     // Call this function to set the weapon back to a shovel.

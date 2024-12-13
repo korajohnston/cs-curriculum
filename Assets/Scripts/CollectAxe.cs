@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CollectAxe : MonoBehaviour
@@ -8,7 +9,7 @@ public class CollectAxe : MonoBehaviour
     private int axe;
     public bool HasAxe = false;
     private TopDown_AnimatorController _animator;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,7 @@ public class CollectAxe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -35,7 +36,7 @@ public class CollectAxe : MonoBehaviour
         {
             if (HasAxe)
             {
-                other.gameObject.SetActive(false);  
+                other.gameObject.SetActive(false);
             }
 
             if (HasAxe == false)
@@ -43,6 +44,25 @@ public class CollectAxe : MonoBehaviour
                 other.gameObject.SetActive(true);
             }
         }
-        
+
+        void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("CollisionDoor") && _animator.IsAttacking)
+            {
+                if (HasAxe)
+                {
+                    other.gameObject.SetActive(false);
+                }
+
+                if (HasAxe == false)
+                {
+                    other.gameObject.SetActive(true);
+                }
+            }
+
+        }
     }
 }
+
+    
+
