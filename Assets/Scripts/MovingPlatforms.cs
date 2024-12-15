@@ -28,17 +28,15 @@ public class MovingPlatforms : MonoBehaviour
             1.5f * Time.deltaTime);
     }
 
-    /*private void OnCollisionEnter(Collision other)
+   
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            gameObject.transform.parent = platform.transform;
-        }
+        collision.transform.SetParent(transform);
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        gameObject.transform.parent = null;
+       collision.transform.SetParent(null); 
     }
-    */
 }

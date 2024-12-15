@@ -44,23 +44,7 @@ public class CollectAxe : MonoBehaviour
                 other.gameObject.SetActive(true);
             }
         }
-
-        void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("CollisionDoor") && _animator.IsAttacking)
-            {
-                if (HasAxe)
-                {
-                    other.gameObject.SetActive(false);
-                }
-
-                if (HasAxe == false)
-                {
-                    other.gameObject.SetActive(true);
-                }
-            }
-
-        }
+        
     }
 }
 

@@ -95,7 +95,8 @@ public class Movement : MonoBehaviour
                 cloneRB.AddForce(Vector2.down * 8f, ForceMode2D.Impulse);
             }
            
-        } 
+        }
+        
     }
 }
 
