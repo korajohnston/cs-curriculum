@@ -7,7 +7,7 @@ using UnityEngine;
 public class CollectAxe : MonoBehaviour
 {
     private int axe;
-    public bool HasAxe = false;
+    private bool HasAxe = false;
     private TopDown_AnimatorController _animator;
 
     // Start is called before the first frame update
@@ -32,7 +32,7 @@ public class CollectAxe : MonoBehaviour
             other.gameObject.SetActive(false);
         }
 
-        if (other.gameObject.CompareTag("CollisionDoor") && _animator.IsAttacking)
+        if (other.gameObject.CompareTag("CollisionDoor"))
         {
             if (HasAxe)
             {
@@ -45,6 +45,23 @@ public class CollectAxe : MonoBehaviour
             }
         }
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        
+        if (other.gameObject.CompareTag("WoodDoor"))
+        {
+            if (HasAxe)
+            {
+                Destroy(other.gameObject);
+            }
+
+            if (HasAxe == false)
+            {
+                other.gameObject.SetActive(true);
+            }
+        }
     }
 }
 
