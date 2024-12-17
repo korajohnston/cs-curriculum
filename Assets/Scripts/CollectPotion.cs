@@ -6,12 +6,13 @@ using TMPro;
 public class CollectPotion : MonoBehaviour
 {
     public bool hasPotion;
-    //public float timer = 10.0f;
+    public bool hasBigPotion;
     public GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
         hasPotion = false;
+        hasBigPotion = false;
         gm = FindFirstObjectByType<GameManager>();
     }
 
@@ -21,7 +22,11 @@ public class CollectPotion : MonoBehaviour
         print(message: hasPotion);
         gm.timerText.text = "timer: " + gm.timer;
         
-        if (hasPotion == true)
+        if (hasPotion)
+        {
+            gm.timer -= Time.deltaTime;
+        }
+        if (hasBigPotion)
         {
             gm.timer -= Time.deltaTime;
         }
@@ -29,12 +34,10 @@ public class CollectPotion : MonoBehaviour
         if (gm.timer <= 0.0f)
         {
             hasPotion = false;
+            hasBigPotion = false;
+            gm.timer = 0f;
         }
         
-        if (hasPotion == false)
-        {
-            gm.timer = 10f;
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -42,7 +45,15 @@ public class CollectPotion : MonoBehaviour
         if (other.gameObject.CompareTag("PinkPotion"))
         {
             hasPotion = true;
-            Destroy(other);
+            gm.timer = 10f;
+            Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.CompareTag("BigPotion"))
+        {
+            hasBigPotion = true;
+            gm.timer = 20f;
+            Destroy(other.gameObject);
         }
     }
 }

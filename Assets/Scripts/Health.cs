@@ -10,6 +10,7 @@ public class Health : MonoBehaviour
     public GameManager gm;
     private TopDown_EnemyAnimator _enemyAttacking;
     public CollectPotion potion;
+    public bool inLava = false;
     
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,17 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (inLava)
+        {
+            if (potion.hasPotion || potion.hasBigPotion)
+            {
+                gm.ChangeHealth(amount: 0);
+            }
+            else
+            {
+                gm.ChangeHealth(amount: -10);
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -45,15 +56,8 @@ public class Health : MonoBehaviour
 
         if (other.gameObject.CompareTag("Lava"))
         {
-            if (potion.hasPotion == true)
-            {
-                gm.ChangeHealth(amount: 0);
-            }
-
-            if (potion.hasPotion == false)
-            {
-                gm.ChangeHealth(amount: -10);
-            }
+            inLava = true;
+            
         }
     }
 }

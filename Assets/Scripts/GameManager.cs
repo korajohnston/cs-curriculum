@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         coinText.text = "coins: " + gm.coins;
         health = 10;
         healthText.text = "health: " + gm.health;
-        timer = 10;
+        timer = 0;
         gm.timerText.text = "timer: " + gm.timer;
     
     }

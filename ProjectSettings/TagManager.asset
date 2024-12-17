@@ -27,6 +27,7 @@ TagManager:
   - RockDoor3
   - WoodBlock
   - WoodDoor
+  - BigPotion
   layers:
   - Default
   - TransparentFX
